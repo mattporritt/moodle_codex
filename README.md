@@ -17,7 +17,7 @@ This repository gives Codex a stable command surface for Moodle LMS development 
 ~/projects/moodle/codex           # this repo as a git submodule
 ```
 
-## Setup
+## First-day setup
 
 1. Add this repo as a submodule inside your Moodle checkout:
 
@@ -26,20 +26,45 @@ git -C ~/projects/moodle submodule add <YOUR_REPO_URL> codex
 git -C ~/projects/moodle submodule update --init --recursive
 ```
 
-2. Configure paths for your machine:
+2. Configure local paths for your machine:
 
 ```bash
 cd ~/projects/moodle/codex
 cp .codex.env.example .codex.env
 ```
 
-3. Edit `.codex.env` if your paths/services differ.
+3. Edit `.codex.env` and confirm these values:
 
-4. Verify wiring:
+- `MOODLE_DIR="$HOME/projects/moodle"`
+- `MOODLE_DOCKER_DIR="$HOME/projects/moodle-docker"`
+- `WEBSERVER_SERVICE="webserver"` (or your service name)
+- `WEBSERVER_USER="www-data"` (or your preferred container user)
+
+4. Verify wiring end to end:
 
 ```bash
 ./codex/doctor
+./codex/up
 ```
+
+5. Prepare the test environments once per clean site build:
+
+```bash
+./codex/install
+./codex/phpunit-init
+./codex/behat-init
+```
+
+## Daily workflow with Codex app
+
+1. Open Codex with cwd at `~/projects/moodle/codex`.
+2. Start each session with [`PROMPT_TEMPLATE.md`](/Users/mattp/projects/moodle/codex/PROMPT_TEMPLATE.md).
+3. Ask Codex to edit code in `MOODLE_DIR` but run all Dockerized actions via `./codex/*`.
+4. Require targeted checks before completion:
+
+- `./codex/phpcs <touched paths>`
+- `./codex/phpunit <targeted tests>`
+- `./codex/behat <targeted tags>` for UI/behaviour changes
 
 ## Core commands
 
@@ -55,18 +80,6 @@ cp .codex.env.example .codex.env
 - `./codex/changed-files [base-ref]` (default `origin/main`)
 - `./codex/preflight [paths...]` (defaults to changed files)
 
-## How to run Codex against Moodle
-
-Open Codex in `~/projects/moodle/codex` so it can use this command surface.
-
-Use [`PROMPT_TEMPLATE.md`](/Users/mattp/projects/moodle_codex/PROMPT_TEMPLATE.md) as your session bootstrap prompt.
-
-Recommended operating pattern:
-
-- Tell Codex the issue/goal.
-- Require targeted tests and coding-style checks before completion.
-- Ask for explicit command outputs summary in each response.
-
 ## Branch and commit discipline
 
 In your Moodle repo (`~/projects/moodle`):
@@ -76,7 +89,7 @@ In your Moodle repo (`~/projects/moodle`):
 - Include tests in same commit as behaviour changes.
 - Use `./codex/changed-files <base-branch>` to scope linting.
 
-Suggested commit summary style when issue key exists:
+Suggested commit summary style when an issue key exists:
 
 ```text
 MDL-12345 component_name: concise imperative summary
