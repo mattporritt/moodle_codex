@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+codex_exec_web php admin/tool/phpunit/cli/init.php "$@"

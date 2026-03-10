@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+TARGETS=("$@")
+
+if [[ ${#TARGETS[@]} -eq 0 ]]; then
+  mapfile -t TARGETS < <("$(dirname "$0")/changed-files" | sed '/^$/d')
+fi
+
+if [[ ${#TARGETS[@]} -eq 0 ]]; then
+  echo "No files to lint."
+  exit 0
+fi
+
+"$(dirname "$0")/phpcs" "${TARGETS[@]}"

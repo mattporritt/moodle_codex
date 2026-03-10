@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+BASE_REF="${1:-origin/main}"
+
+codex_ensure_dir "${MOODLE_DIR}"
+(
+  cd "${MOODLE_DIR}"
+  git diff --name-only "${BASE_REF}"...HEAD
+)

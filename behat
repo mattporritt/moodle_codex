@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Example:
-#   ./codex/behat --tags=@auth_manual
-"$(dirname "$0")/mdc" exec -u www-data webserver php admin/tool/behat/cli/run.php "$@"

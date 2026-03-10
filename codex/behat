@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+codex_exec_web_as_user "${WEBSERVER_USER}" php admin/tool/behat/cli/run.php "$@"

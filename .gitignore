@@ -1,1 +1,3 @@
 .idea/
+.codex.env
+_smoke_test/

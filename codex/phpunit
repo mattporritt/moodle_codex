@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+if [[ $# -eq 0 ]]; then
+  codex_exec_web "${PHPUNIT_BIN}"
+else
+  codex_exec_web "${PHPUNIT_BIN}" "$@"
+fi

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+codex_validate_env
+
+echo "codex root          : ${CODEX_ROOT}"
+echo "env file            : ${CODEX_ENV_FILE}"
+echo "moodle dir          : ${MOODLE_DIR}"
+echo "moodle-docker dir   : ${MOODLE_DOCKER_DIR}"
+echo "compose binary      : ${MDOCKER_COMPOSE}"
+echo "webserver service   : ${WEBSERVER_SERVICE}"
+echo "webserver user      : ${WEBSERVER_USER}"
+
+echo
+echo "Checking docker service visibility..."
+codex_mdc ps
+
+echo
+echo "Checking Moodle CLI availability in container..."
+codex_exec_web php --version

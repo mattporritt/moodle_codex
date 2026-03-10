@@ -1,29 +1,34 @@
-# Codex instructions for Moodle LMS work
+# Codex Instructions For Moodle LMS Work
+
+## Scope
+- This repository is a command surface for Moodle development.
+- The Moodle codebase lives at `MOODLE_DIR` from `.codex.env`.
+- Run dockerized operations via `./codex/*` scripts.
 
 ## Non-negotiables
-- Follow Moodle coding style and conventions.
-  - Coding style: https://moodledev.io/general/development/policies/codingstyle
-- Prefer existing Moodle APIs/patterns over new abstractions.
-- Keep changes minimal and localized to the requested area.
+- Follow Moodle coding style and conventions:
+  - https://moodledev.io/general/development/policies/codingstyle
+- Reuse existing Moodle APIs/patterns before introducing new abstractions.
+- Keep changes minimal, localized, and issue-focused.
 
-## Workflow
-1. Plan: list files you will touch, and why.
-2. Implement: small, reviewable changes.
-3. Quality gates (run via ./codex/*):
-   - ./codex/phpcs <touched paths> (or explain if unavailable)
-   - ./codex/phpunit <targeted tests>
-   - ./codex/behat <targeted tags> when behaviour or UI flows change
-4. Fix failures until green.
-5. Propose commits:
+## Standard workflow
+1. Plan impacted files and risks.
+2. Implement smallest viable change.
+3. Run quality gates:
+   - `./codex/phpcs <touched paths>`
+   - `./codex/phpunit <targeted tests>`
+   - `./codex/behat <targeted tags>` for behaviour/UI changes
+4. Fix failures before proposing commit.
+5. Prepare commit suggestions:
    - one logical change per commit
-   - include tests in the same change that introduced behaviour
+   - tests included in the same commit that changes behaviour
 
-## Scope control
-- Only edit files required for the task.
-- If touching shared/core APIs, increase test coverage accordingly.
-- If uncertain about a convention, search within the repo for the closest existing pattern and copy it.
+## Working with a large codebase
+- Prefer targeted search (`rg`) and narrow edits.
+- If unsure about conventions, find and mirror nearby Moodle patterns.
+- Avoid broad refactors unless explicitly requested.
 
 ## Output expectations
-- Summarise what changed and why
-- Summarise test commands run and results
-- Provide commit message suggestions
+- Summarise what changed and why.
+- List exact test/lint commands run and outcomes.
+- Suggest commit message(s) aligned to the change.
