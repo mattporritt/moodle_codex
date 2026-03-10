@@ -68,8 +68,11 @@ cp .codex.env.example .codex.env
 
 ## Core commands
 
+- `./codex/help` - show available commands
 - `./codex/up` - start containers (`up -d`)
 - `./codex/down` - stop containers
+- `./codex/ps` - show docker service status
+- `./codex/logs [service]` - follow docker logs
 - `./codex/install` - install Moodle database/site
 - `./codex/phpunit-init` - initialize PHPUnit environment
 - `./codex/phpunit [test-path-or-filter]`
@@ -79,6 +82,9 @@ cp .codex.env.example .codex.env
 - `./codex/phpcbf <paths...>`
 - `./codex/changed-files [base-ref]` (default `origin/main`)
 - `./codex/preflight [paths...]` (defaults to changed files)
+- `./codex/web <command...>` - run arbitrary command in web container as `WEBSERVER_USER`
+- `./codex/web-root <command...>` - run arbitrary command in web container as default/root user
+- `./codex/mdc <compose args...>` - direct moodle-docker-compose passthrough
 
 ## Branch and commit discipline
 

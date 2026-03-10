@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat <<USAGE
+Moodle Codex Runner
+
+Core lifecycle:
+  ./codex/up [compose-args...]         Start services
+  ./codex/down [compose-args...]       Stop services
+  ./codex/ps [compose-args...]         Show service status
+  ./codex/logs [service...]            Follow docker logs
+  ./codex/doctor                        Validate env and docker wiring
+
+Moodle setup and tests:
+  ./codex/install [install-args...]
+  ./codex/phpunit-init [args...]
+  ./codex/phpunit [test/filter...]
+  ./codex/behat-init [args...]
+  ./codex/behat [args...]
+
+Quality checks:
+  ./codex/phpcs <path...>
+  ./codex/phpcbf <path...>
+  ./codex/changed-files [base-ref]
+  ./codex/preflight [paths...]
+
+Container command helpers:
+  ./codex/web <command...>             Exec in web service as WEBSERVER_USER
+  ./codex/web-root <command...>        Exec in web service as default/root user
+  ./codex/mdc <compose-args...>        Raw moodle-docker-compose passthrough
+USAGE
