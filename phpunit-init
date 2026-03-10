@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+"$(dirname "$0")/mdc" exec webserver php admin/tool/phpunit/cli/init.php

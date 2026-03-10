@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Basic install using your known-good CLI.
+"$(dirname "$0")/mdc" exec webserver php admin/cli/install_database.php \
+  --agree-license \
+  --fullname="Moodle Master" \
+  --shortname="docker_moodle" \
+  --summary="Moodle dev site" \
+  --adminpass="test" \
+  --adminemail="pozze30@gmail.com"
